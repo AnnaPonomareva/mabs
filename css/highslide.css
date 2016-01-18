@@ -285,6 +285,15 @@ html>/**/body .highslide-gallery ul img {
 .highslide-maincontent {
     display: none;
 }
+
+.highslide-maincontent a {
+    color: #444444;
+}
+
+.highslide-maincontent a:hover {
+    color: #666666;
+}
+
 .highslide-html {
     background-color: white;
 }
@@ -322,6 +331,7 @@ html>/**/body .highslide-gallery ul img {
 }
 .highslide-footer {
     height: 16px;
+    cursor: pointer;
 }
 .highslide-footer .highslide-resize {
     display: block;
@@ -383,7 +393,7 @@ html>/**/body .highslide-gallery ul img {
     background-image: url(graphics/closeX.png);
 }
 .draggable-header .highslide-header .highslide-close a:hover {
-    background-position: 0 16px;
+    background-position: 16px 16px;
 }
 .draggable-header .highslide-header .highslide-close span {
     display: none;
