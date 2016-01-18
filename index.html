@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MABs</title>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/modules/exporting.js"></script>
+    <script type="text/javascript" src="js/modules/data.js"></script>
+
+    <!-- Additional files for the Highslide popup effect -->
+    <script src="js/highslide-full.min.js"></script>
+    <script src="js/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/highslide.css" />
+
+     <!--<script type="text/javascript" src="js/themes/dark-unica.js"></script>-->
+</head>
+<body>
+<div id="container" style="min-width: 800px; height: 680px; max-width: 1920px; margin: 0 auto"></div>
+<script type="text/javascript">
+    var MMM = null;
+    $(document).ready(function () {
+        $.get('mab-info.json', function (mabs) {
+            MMM = mabs;
+            $('#container').highcharts({
+                chart: {
+                    type: 'scatter',
+                    zoomType: 'xy'
+                },
+                title: {
+                    text: 'MABs'
+                },
+                subtitle: {
+                    text: 'Monoclonal antibodies 1997-2015 by type'
+                },
+                tooltip: {
+                    pointFormatter: function() {
+                        return this.name + '<br/><b>(VH: ' + this.x.toFixed(2) + '%, VL: ' + this.y.toFixed(2) + '%)</b>'
+                    },
+                    shared: true
+                },
+                plotOptions: {
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function (e) {
+                                    hs.htmlExpand(null, {
+                                        pageOrigin: {
+                                            x: e.pageX || e.clientX,
+                                            y: e.pageY || e.clientY
+                                        },
+                                        headingText: this.name +":" ,
+                                        maincontentText: "<p style='word-wrap: break-word'><b>HC:</b>&nbsp;" + this.vh + '<br/>' + '<br/>' +
+                                        "<b>LC</b>:&nbsp;" + this.vl + '<br/>' + '<br/>' +
+                                        "<b>Year:</b> " + this.year +'<br/>' + '<br/>' +
+                                        "<b>Author:</b> "+ this.author +'<br/>' + '<br/>' +
+                                        "<b>Link:</b> <a href ='" + this.link + "' target='_blank'>Tabs link</a><br/></p>",
+                                        width: 600,
+                                        height: 400
+                                    });
+                                }
+                            }
+                        },
+                        marker: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                xAxis: {
+                    title: {
+                        text: 'VH'
+                    },
+                    gridLineWidth: 1
+                },
+                yAxis: {
+                    title: {
+                        text: 'VL'
+                    },
+                    gridLineWidth: 1
+                },
+                series: [{
+                    name: 'Chimeric',
+                    color: 'red',
+                    data: mabs.xi
+                }, {
+                    name: "Chimeric/humanized",
+                    color: '#000',
+                    data: mabs.xizu
+                },{
+                    name: 'Humanized',
+                    color: '#FFCC00',
+                    data: mabs.zu
+                }, {
+                    name: 'Human',
+                    color: 'green',
+                    data: mabs.u
+                }, {
+                    name: 'BIOCAD',
+                    color: 'blue',
+                    data: mabs.biocad
+                }]
+            });
+        });
+    });
+</script>
+</body>
+</html>
