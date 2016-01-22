@@ -52,7 +52,7 @@
                                             x: e.pageX || e.clientX,
                                             y: e.pageY || e.clientY
                                         },
-                                        headingText: this.name +":" ,
+                                        headingText: this.name ,
                                         maincontentText: "<p style='word-wrap: break-word'><b>HC:</b>&nbsp;<spane class='uppercase'>" + this.hc + "</spane><br/>" + "<br/>" +
                                         "<b>LC</b>:&nbsp;<spane class='uppercase'>" + this.lc + "</spane><br/>" + "<br/>" +
                                         "<b>Year:</b> " + this.year +"<br/>" + "<br/>" +
@@ -61,6 +61,7 @@
                                         width: 600
                                     });
                                     hs.allowMultipleInstances = false;
+
                                 }
                             }
                         },
@@ -84,23 +85,43 @@
                 series: [{
                     name: 'Chimeric',
                     color: '#cc0000',
-                    data: mabs.xi
+                    data: mabs.xi,
+                    marker: {
+                        symbol: "triangle",
+                        radius: 5
+                    }
                 }, {
                     name: "Chimeric/humanized",
                     color: '#ff6600',
-                    data: mabs.xizu
+                    data: mabs.xizu,
+                    marker: {
+                        symbol: "circle",
+                        radius: 4
+                    }
                 },{
                     name: 'Humanized',
                     color: '#FFCC00',
-                    data: mabs.zu
+                    data: mabs.zu,
+                    marker: {
+                        symbol: "diamond",
+                        radius: 5
+                    }
                 }, {
                     name: 'Human',
                     color: '#006600',
-                    data: mabs.u
+                    data: mabs.u,
+                    marker: {
+                        symbol: "square",
+                        radius: 4
+                    }
                 }, {
                     name: 'BIOCAD',
                     color: '#0000ff',
-                    data: mabs.biocad
+                    data: mabs.biocad,
+                    marker: {
+                        symbol: "triangle-down",
+                        radius: 5
+                    }
                 }]
             });
         });
