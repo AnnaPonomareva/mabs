@@ -13,6 +13,7 @@
     <script src="js/highslide-full.min.js"></script>
     <script src="js/highslide.config.js" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="css/highslide.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
      <!--<script type="text/javascript" src="js/themes/dark-unica.js"></script>-->
 </head>
@@ -52,13 +53,14 @@
                                             y: e.pageY || e.clientY
                                         },
                                         headingText: this.name +":" ,
-                                        maincontentText: "<p style='word-wrap: break-word'><b>HC:</b>&nbsp;" + this.hc + '<br/>' + '<br/>' +
-                                        "<b>LC</b>:&nbsp;" + this.lc + '<br/>' + '<br/>' +
-                                        "<b>Year:</b> " + this.year +'<br/>' + '<br/>' +
-                                        "<b>Author:</b> "+ this.author +'<br/>' + '<br/>' +
+                                        maincontentText: "<p style='word-wrap: break-word'><b>HC:</b>&nbsp;<spane class='uppercase'>" + this.hc + "</spane><br/>" + "<br/>" +
+                                        "<b>LC</b>:&nbsp;<spane class='uppercase'>" + this.lc + "</spane><br/>" + "<br/>" +
+                                        "<b>Year:</b> " + this.year +"<br/>" + "<br/>" +
+                                        "<b>Author:</b> "+ this.author +"<br/>" + "<br/>" +
                                         "<b>Link:</b> <a href ='" + this.link + "' target='_blank'>Tabs link</a><br/></p>",
                                         width: 600
                                     });
+                                    hs.allowMultipleInstances = false;
                                 }
                             }
                         },
