@@ -1,0 +1,41 @@
+.tooltipster-shadow {
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 16px rgba(0,0,0,0.3);
+	color: #2c2c2c;
+
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
+
+    position:absolute;
+    display: none;
+    z-index: 10;
+
+    width: 600px;
+    cursor: move;
+}
+
+.tooltipster-shadow h3 {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+}
+
+#tooltip-close {
+    z-index: 11;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    background: 0 0 url("../graphics/closeX.png");
+}
+
+#tooltip-close:hover {
+    background-position: 16px 16px;
+}

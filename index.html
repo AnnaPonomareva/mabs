@@ -9,19 +9,26 @@
     <script type="text/javascript" src="js/modules/exporting.js"></script>
     <script type="text/javascript" src="js/modules/data.js"></script>
 
-    <!-- Additional files for the Highslide popup effect -->
-    <script src="js/highslide-full.min.js"></script>
-    <script src="js/highslide.config.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="css/highslide.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
-     <!--<script type="text/javascript" src="js/themes/dark-unica.js"></script>-->
+    <!--for tooltips -->
+    <link rel="stylesheet" type="text/css" href="css/tooltip/tooltip-shadow.css" />
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+    <!--<script type="text/javascript" src="js/themes/dark-unica.js"></script>-->
 </head>
 <body>
-<div id="container" style="min-width: 800px; height: 680px; max-width: 1920px; margin: 0 auto"></div>
+<div id="container" style="min-width: 800px; height: 680px; max-width: 1920px; margin: 0 auto">
+</div>
+
+<div id="tooltip"  class="tooltipster-shadow">
+</div>
+
 <script type="text/javascript">
     var MMM = null;
     $(document).ready(function () {
+//        $('#tooltip').draggable();
+
         $.get('mab-info.json', function (mabs) {
             MMM = mabs;
             $('#container').highcharts({
@@ -44,24 +51,54 @@
                 plotOptions: {
                     series: {
                         cursor: 'pointer',
+                        allowPointSelect: true,
                         point: {
                             events: {
-                                click: function (e) {
-                                    hs.htmlExpand(null, {
-                                        pageOrigin: {
-                                            x: e.pageX || e.clientX,
-                                            y: e.pageY || e.clientY
-                                        },
-                                        headingText: this.name ,
-                                        maincontentText: "<p style='word-wrap: break-word'><b>HC:</b>&nbsp;<spane class='uppercase'>" + this.hc + "</spane><br/>" + "<br/>" +
+                                    click: function (e) {
+                                    var h = $(window).height();
+                                    var w = $(window).width();
+                                    var x = e.pageX || e.clientX;
+                                    var y = e.pageY || e.clientY;
+                                    var tt =  $("#tooltip");
+                                    var ttw = tt.width() + 20; // add padding
+                                    var tth = tt.height() + 16; // add padding
+
+                                    tt.html("<h3>"+this.name+"</h3>"+"<p style='word-wrap: break-word'><b>HC:</b>&nbsp;<spane class='uppercase'>" + this.hc + "</spane><br/>" + "<br/>" +
                                         "<b>LC</b>:&nbsp;<spane class='uppercase'>" + this.lc + "</spane><br/>" + "<br/>" +
                                         "<b>Year:</b> " + this.year +"<br/>" + "<br/>" +
                                         "<b>Author:</b> "+ this.author +"<br/>" + "<br/>" +
-                                        "<b>Link:</b> <a href ='" + this.link + "' target='_blank'>Tabs link</a><br/></p>",
-                                        width: 600
-                                    });
-                                    hs.allowMultipleInstances = false;
+                                        "<b>Link:</b> <a href ='" + this.link + "' target='_blank'>Tabs link</a><br/></p><div id='tooltip-close'></div>");
 
+
+                                    if (x + ttw > w) {
+                                        if (x - ttw > 0) {
+                                            tt.css('left', x - ttw);
+                                        } else {
+                                            if ((w - x - ttw) > ttw - x) {
+                                                tt.css('left', 0);
+                                            } else {
+                                                tt.css('left', w - ttw);
+                                            }
+                                        }
+                                    } else {
+                                        tt.css('left', x);
+                                    }
+
+                                    if ((y + tth > h) && (y - tth > 0)) {
+                                        if (y - tth > 0) {
+                                            tt.css('top', y - tth);
+                                        } else {
+                                            if ((h - y - tth) > tth - y) {
+                                                tt.css('top', 0);
+                                            } else {
+                                                tt.css('top', h - tth);
+                                            }
+                                        }
+                                    } else {
+                                        tt.css('top', y);
+                                    }
+
+                                    tt.fadeIn();
                                 }
                             }
                         },
@@ -122,13 +159,23 @@
                         symbol: "triangle-down",
                         radius: 5
                     }
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
+
         });
     });
 
-    $('body').on('click', 'div.highslide-container div.highslide-footer', function () {
-        hs.close(this)
+    $('body').on('click', 'div#tooltip > div#tooltip-close', function () {
+       $('div#tooltip').fadeOut();
+        var chart = $('#container').highcharts();
+        for (var i = 0; i < chart.series.length; i++) {
+            for (var j = 0; j < chart.series[i].data.length; j++){
+                chart.series[i].data[j].select(false, false);
+            }
+        }
     });
 
 </script>
