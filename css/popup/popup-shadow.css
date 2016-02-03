@@ -1,4 +1,4 @@
-.tooltipster-shadow {
+.popup-shadow {
 	border-radius: 8px;
 	background: #fff;
 	box-shadow: 0 0 16px rgba(0,0,0,0.3);
@@ -14,10 +14,9 @@
     z-index: 10;
 
     width: 600px;
-    cursor: move;
 }
 
-.tooltipster-shadow h3 {
+.popup-shadow h3 {
     font-size: 15px;
     font-weight: bold;
     text-align: center;
@@ -25,7 +24,7 @@
     padding-bottom: 8px;
 }
 
-#tooltip-close {
+#popup-close {
     z-index: 11;
     width: 16px;
     height: 16px;
@@ -36,6 +35,6 @@
     background: 0 0 url("../graphics/closeX.png");
 }
 
-#tooltip-close:hover {
+#popup-close:hover {
     background-position: 16px 16px;
 }

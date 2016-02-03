@@ -1,3 +1,18 @@
-.uppercase{
+.uppercase {
     text-transform: uppercase;
+}
+
+#search-widget {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    z-index: 2;
+}
+
+#search-lable{
+    cursor: pointer;
+}
+
+#search-lable:hover {
+    color: #444;
 }
